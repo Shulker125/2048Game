@@ -10,7 +10,7 @@ public class Driver {
 				{ 2, 0, 0, 0 }, 
 				{ 0, 2, 0, 0 },
 				{ 2, 0, 2, 0} 
-				};
+				}; 
 
 		BoardGUI b = new BoardGUI(data);
 		 
