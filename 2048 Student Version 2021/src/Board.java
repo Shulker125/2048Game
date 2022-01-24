@@ -35,22 +35,14 @@ public class Board {
 	// that its parent class has
 	public String toString() {
 		
-		/*
-		 * Use the String formatter to pad the numbers with leading 0s
-		 * so that the print out does not become jagged
-		 * An example is shown below. 
-		 * String str = String.format("%04d", 9);  // 0009  
-		 * int x = 30;
-		 * System.out.println(String.format("%04d",x));
-		 *     
-		 */
-		
-		//setup loops to visit
-		//every spot possible
-		
-		
-		
-		return "";
+		String str = "";
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				str += String.format("%04d", board[i][j]) + " ";
+			}
+			str += "\n";
+		}
+		return str;
 	}
 
 	/*
@@ -69,12 +61,40 @@ public class Board {
 		// for randomness, generate a row and column
 		// check if that tile is empty, if it is NOT empty,
 		// generate another set of row and column
-		// what happens if the entire board is full??! 
-		
-		
-		
-			
+		// what happens if the entire board is full??!
+		int x = rnd.nextInt(4);
+		int y = rnd.nextInt(4);
+		int i = 0;
+		while (board[x][y] != 0 && i < 16) {
+			x = rnd.nextInt(4);
+			y = rnd.nextInt(4);
+			i++;
+		}
+		int num = rnd.nextInt(101)+1;
+		if (num >= 90) {
+			board[x][y] = 4;
+		}
+		else {
+			board[x][y] = 2;
+		}
 
+	}
+	public void populateOneTrue() {
+		int x = (int)(Math.random()*4);
+		int y = (int)(Math.random()*4);
+		int i = 0;
+		while (board[x][y] != 0 && i < 16) {
+			x = (int)(Math.random()*4);
+			y = (int)(Math.random()*4);
+			i++;
+		}
+		double num = Math.random();
+		if (num >= 0.9) {
+			board[x][y] = 4;
+		}
+		else {
+			board[x][y] = 2;
+		}
 	}
 
 	/*
@@ -89,7 +109,15 @@ public class Board {
 	 */
 
 	public void slideRight(int[] row) {
-		
+		int current = 3;
+		for (int i = row.length-1; i >= 0; i--) {
+			if (row[i] != 0) {
+				int temp = row[i];
+				row[i] = 0;
+				row[current] = temp;
+				current--;
+			}
+		}
 
 	
 	}
@@ -109,7 +137,9 @@ public class Board {
 
 		// go through 2D array, move all digits as far right as possible
 		//setup a loop to grab ONE row at a time from 2d array board
-	
+		for (int i = 0; i < 4; i++) {
+			slideRight(board[i]);
+		}
 		
 	}
 
@@ -123,7 +153,15 @@ public class Board {
 	 */
 
 	public void slideLeft(int[] arr) {
-		
+		int current = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] != 0) {
+				int temp = arr[i];
+				arr[i] = 0;
+				arr[current] = temp;
+				current++;
+			}
+		}
 		
 		
 	}
@@ -138,7 +176,9 @@ public class Board {
 		
 		// grabbing a row from a 2D array
 		// if it's called arr then arr[i] grabs ONE row!
-	
+		for (int i = 0; i < 4; i++) {
+			slideLeft(board[i]);
+		}
 		
 		
 		//visit every single row in the 2D array

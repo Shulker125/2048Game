@@ -10,7 +10,7 @@ public class Activity1Tester {
 		// print or println
 
 		
-		System.out.println(b);
+		System.out.println(b.toString());
 		
 	}
 
