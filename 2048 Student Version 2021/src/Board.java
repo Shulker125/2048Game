@@ -274,7 +274,14 @@ public class Board {
 	 */
 
 	public void combineRight() {
-
+		for (int i = 0; i < board.length; i++) {
+			for (int j = board[i].length-1; j > 0; j--) {
+				if (board[i][j] == board[i][j-1]) {
+					board[i][j] *= 2;
+					board[i][j-1] = 0;
+				}
+			}
+		}
 	}
 
 	/*
@@ -283,7 +290,14 @@ public class Board {
 	 */
 
 	public void combineLeft() {
-		
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length-1; j++) {
+				if (board[i][j] == board[i][j+1]) {
+					board[i][j] *= 2;
+					board[i][j+1] = 0;
+				}
+			}
+		}
 	}
 	
 	/*
@@ -292,7 +306,19 @@ public class Board {
 	 */
 
 	public void combineUp() {
-
+		int[] col = {};
+		for (int i = 0; i < board.length; i++) {
+			col = getCol(board, i);
+			for (int j = 0; j < col.length-1; j++) {
+				if (col[j] == col[j+1]) {
+					col[j] *= 2;
+					col[j+1] = 0;
+				}
+			}
+			for (int k = 0; k < board.length; k++) {
+				board[k][i] = col[k];
+			}
+		}
 	}
 
 	/*
@@ -301,7 +327,19 @@ public class Board {
 	 */
 
 	public void combineDown() {
-
+		int[] col = {};
+		for (int i = 0; i < board.length; i++) {
+			col = getCol(board, i);
+			for (int j = board.length-1; j > 0; j--) {
+				if (col[j] == col[j-1]) {
+					col[j] *= 2;
+					col[j-1] = 0;
+				}
+			}
+			for (int k = 0; k < board.length; k++) {
+				board[k][i] = col[k];
+			}
+		}
 	}
 
 	
@@ -315,24 +353,49 @@ public class Board {
 		//1) numbers slide to the left
 		//2) combine
 		//3) slide
+		slideLeft();
+		combineLeft();
+		slideLeft();
+		
+		
+		
 	}
 
 	public void right() {
-
+		slideRight();
+		combineRight();
+		slideRight();
+		
+		
 	}
 
 	public void up() {
-
+		slideUp();
+		combineUp();
+		slideUp();
+		
+		
 	}
 
 	public void down() {
-
+		slideDown();
+		combineDown();
+		slideDown();
+		
+		
 	}
 	
 	
 
 	public boolean gameOver() {
-		return false;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j] == 0) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public int[][] getBoard() {
@@ -347,5 +410,13 @@ public class Board {
 			}
 		}
 	}
+	/*
+	 * 2 2 2 2
+	 * 0 0 2 0
+	 * 0 2 0 0
+	 * 2 0 0 0 
+	 * 
+	 * 
+	 */
 
 }
