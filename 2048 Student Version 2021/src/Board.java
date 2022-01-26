@@ -194,7 +194,8 @@ public class Board {
 	public int[] getCol(int[][] data, int c) {
 		
 		//you can also add print out statements here
-		return new int[0];
+		int[] col = {data[0][c], data[1][c], data[2][c], data[3][c]};
+		return col;
 		
 	}
 
@@ -207,6 +208,8 @@ public class Board {
 	public void slideUp(int[] arr) {
 		/* calls a helper method */
 		// do not rewrite logic you already have!
+		slideLeft(arr);
+		
 	}
 
 	/*
@@ -223,7 +226,14 @@ public class Board {
 		//have slideLeft perform manipulation on the array
 		// copy over the 1D array representation of the column
 		// back to the 2D board array
-
+		int[] col = {};
+		for (int i = 0; i < 4; i++) {
+			col = getCol(board, i);
+			slideUp(col);
+			for (int j = 0; j < board.length; j++) {
+				board[j][i] = col[j];
+			}
+		}
 		
 		
 		
@@ -231,7 +241,7 @@ public class Board {
 
 	public void slideDown(int[] arr) {
 
-		
+		slideRight(arr);
 	}
 
 	/*
@@ -241,7 +251,14 @@ public class Board {
 	 */
 
 	public void slideDown() {
-
+		int[] col = {};
+		for (int i = 0; i < 4; i++) {
+			col = getCol(board, i);
+			slideDown(col);
+			for (int j = 0; j < board.length; j++) {
+				board[j][i] = col[j];
+			}
+		}
 	}
 
 	/*
